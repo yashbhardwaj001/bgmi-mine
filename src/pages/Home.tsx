@@ -202,7 +202,7 @@ export default function Home() {
                 animation: 'pulse 2s infinite',
               }}
             />
-            Official BGMI Tournament Platform
+            Official BGIS Tournament Platform
           </div>
 
           {/* Main heading */}
@@ -220,7 +220,7 @@ export default function Home() {
           >
             Enter The{' '}
             <GlitchText
-              text="BATTLEZONE"
+              text="BGIS"
               className="text-primary"
               style={{ color: '#e2b714', textShadow: '0 0 40px rgba(226,183,20,0.4)' } as React.CSSProperties}
             />

@@ -21,7 +21,7 @@ export default function Navbar() {
               <Gamepad2 className="h-6 w-6 text-primary" />
             </div>
             <span className="text-xl font-bold tracking-tight text-white">
-              Battle<span className="text-primary">Zone</span>
+              BGI<span className="text-primary">S</span>
             </span>
           </Link>
 

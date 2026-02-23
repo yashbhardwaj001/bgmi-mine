@@ -12,14 +12,14 @@ export default function Footer() {
                 <Gamepad2 className="h-5 w-5 text-primary" />
               </div>
               <span className="text-lg font-bold tracking-tight text-white">
-                Battle<span className="text-primary">Zone</span>
+                BGI<span className="text-primary">S</span>
               </span>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed max-w-xs">
               The ultimate platform for competitive mobile gaming. Join daily tournaments, showcase your skills, and win real cash prizes.
             </p>
           </div>
-          
+
           <div>
             <h4 className="text-sm font-bold text-white mb-6 uppercase tracking-wider">Quick Links</h4>
             <ul className="space-y-3 text-sm text-gray-400">
@@ -40,13 +40,13 @@ export default function Footer() {
             </div>
             <div className="flex items-center text-gray-400 text-sm">
               <Mail className="h-4 w-4 mr-3" />
-              <span>support@battlezone.com</span>
+              <span>support@bgis.gg</span>
             </div>
           </div>
         </div>
-        
+
         <div className="border-t border-white/5 pt-8 text-center text-gray-500 text-sm">
-          <p>&copy; {new Date().getFullYear()} BattleZone Esports. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} BGIS Esports. All rights reserved.</p>
         </div>
       </div>
     </footer>
