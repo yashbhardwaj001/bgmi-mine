@@ -1,0 +1,5 @@
+{
+  "name": "BGMI Tournament Hub",
+  "description": "A responsive platform for hosting daily BGMI tournaments with slot booking and prize pool details.",
+  "requestFramePermissions": []
+}
