@@ -10,7 +10,7 @@ export default function TournamentInfo() {
           <Trophy className="text-primary h-6 w-6" />
           Prize Pool Distribution
         </h3>
-        
+
         <div className="space-y-4">
           <div className="flex items-center justify-between bg-bg-dark p-5 rounded-xl border border-white/5">
             <div className="flex items-center gap-4">
@@ -79,9 +79,9 @@ export default function TournamentInfo() {
           </div>
         </div>
 
-        <div className="mt-8 p-6 bg-primary/5 rounded-xl border border-primary/10">
-          <h4 className="font-bold text-primary mb-2 text-sm uppercase tracking-wide">Room ID & Password</h4>
-          <p className="text-sm text-gray-400 leading-relaxed">
+        <div className="mt-8 p-6 bg-white/3 rounded-xl border border-white/8">
+          <h4 className="font-semibold text-primary mb-2 text-xs uppercase tracking-widest">Room ID & Password</h4>
+          <p className="text-sm text-gray-500 leading-relaxed">
             Credentials will be shared 15 minutes before the match start time via email and SMS to registered players.
           </p>
         </div>

@@ -42,7 +42,7 @@ export default function Navbar() {
               </Link>
               <a
                 href="/login.html"
-                className="bg-white text-bg-dark hover:bg-gray-100 px-6 py-2.5 rounded-full text-sm font-semibold transition-all shadow-sm"
+                className="bg-primary text-bg-dark hover:brightness-110 px-6 py-2.5 rounded text-sm font-bold tracking-widest uppercase transition-all"
               >
                 Register Now
               </a>
@@ -79,7 +79,7 @@ export default function Navbar() {
             </Link>
             <a
               href="/login.html"
-              className="block w-full mt-4 bg-white text-bg-dark px-3 py-3 rounded-lg text-base font-semibold text-center"
+              className="block w-full mt-4 bg-primary text-bg-dark px-3 py-3 rounded-lg text-base font-bold text-center tracking-wider uppercase"
             >
               Register Now
             </a>
