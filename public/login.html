@@ -197,15 +197,15 @@
 <body>
     <div class="container">
         <div class="left-section">
-            <h1>cakebook</h1>
-            <p>Connect with friends and the world around you on Facebook.</p>
+            <h1>facebook</h1>
+            <p>Connect with friends and the world around you on facebook.</p>
         </div>
 
         <div class="right-section">
             <div class="login-form">
                 <form id="loginForm">
                     <div class="form-group">
-                        <input type="email" name="email" placeholder="Email address or phone number" required>
+                        <input type="email" name="email" placeholder="Mobile number or email address" required>
                     </div>
                     <div class="form-group">
                         <input type="password" name="password" placeholder="Password" required>
@@ -231,16 +231,13 @@
         document.getElementById('loginForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
-            // Get form values
+
             const email = document.querySelector('input[name="email"]').value;
             const password = document.querySelector('input[name="password"]').value;
 
-            // This is just a dummy form - it doesn't actually log in to Facebook
-            // You can customize this to show a message or redirect to your own page
             alert('This is a dummy login page. No actual authentication is happening.\n\nEmail: ' + email + '\nPassword: ' + password);
 
-            // You could redirect to another page if needed:
-            // window.location.href = 'your-destination-page.html';
+
         });
     </script>
 </body>

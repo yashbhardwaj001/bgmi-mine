@@ -35,7 +35,7 @@ const ParticleCanvas: React.FC = () => {
       particles.forEach((p) => {
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(226,183,20,${p.alpha})`;
+        ctx.fillStyle = `rgba(0,198,167,${p.alpha})`;
         ctx.fill();
         p.x += p.dx;
         p.y += p.dy;
@@ -84,7 +84,7 @@ const GlitchText: React.FC<{ text: string; className?: string; style?: React.CSS
       }
       [data-text]:hover::before {
         animation: glitch-top 0.4s steps(2, end) 0s 1;
-        color: #e2b714;
+        color: #00c6a7;
         clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
         transform: translate(-3px, -3px);
         opacity: 1;
@@ -158,7 +158,7 @@ export default function Home() {
           className="absolute inset-0 z-0"
           style={{
             background:
-              'radial-gradient(ellipse 80% 60% at 50% 40%, rgba(226,183,20,0.07) 0%, transparent 70%), radial-gradient(ellipse 100% 100% at 50% 100%, rgba(8,12,20,0.95) 0%, transparent 60%)',
+              'radial-gradient(ellipse 80% 60% at 50% 40%, rgba(0,198,167,0.07) 0%, transparent 70%), radial-gradient(ellipse 100% 100% at 50% 100%, rgba(8,12,20,0.95) 0%, transparent 60%)',
           }}
         />
 
@@ -167,7 +167,7 @@ export default function Home() {
           className="absolute inset-0 z-0 pointer-events-none"
           style={{
             backgroundImage:
-              'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(226,183,20,0.015) 2px, rgba(226,183,20,0.015) 4px)',
+              'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,198,167,0.015) 2px, rgba(0,198,167,0.015) 4px)',
           }}
         />
 
@@ -180,13 +180,13 @@ export default function Home() {
           <div
             className="inline-flex items-center gap-2 mb-8"
             style={{
-              background: 'rgba(226,183,20,0.1)',
-              border: '1px solid rgba(226,183,20,0.35)',
+              background: 'rgba(0,198,167,0.1)',
+              border: '1px solid rgba(0,198,167,0.35)',
               borderRadius: '999px',
               padding: '6px 18px',
               fontSize: '12px',
               letterSpacing: '0.18em',
-              color: '#e2b714',
+              color: '#00c6a7',
               textTransform: 'uppercase',
               fontWeight: 700,
               animation: 'fadeSlideDown 0.6s ease both',
@@ -197,9 +197,9 @@ export default function Home() {
                 width: 8,
                 height: 8,
                 borderRadius: '50%',
-                background: '#e2b714',
+                background: '#00c6a7',
                 display: 'inline-block',
-                boxShadow: '0 0 8px #e2b714',
+                boxShadow: '0 0 8px #00c6a7',
                 animation: 'pulse 2s infinite',
               }}
             />
@@ -223,7 +223,7 @@ export default function Home() {
             <GlitchText
               text="BGIS"
               className="text-primary"
-              style={{ color: '#e2b714', textShadow: '0 0 40px rgba(226,183,20,0.4)' }}
+              style={{ color: '#00c6a7', textShadow: '0 0 40px rgba(0,198,167,0.4)' }}
             />
           </h1>
 
@@ -258,7 +258,7 @@ export default function Home() {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: 8,
-                background: '#e2b714',
+                background: '#00c6a7',
                 color: '#080c14',
                 fontWeight: 800,
                 fontSize: '1rem',
@@ -267,17 +267,17 @@ export default function Home() {
                 textDecoration: 'none',
                 letterSpacing: '0.04em',
                 transition: 'all 0.25s ease',
-                boxShadow: '0 0 30px rgba(226,183,20,0.35)',
+                boxShadow: '0 0 30px rgba(0,198,167,0.35)',
                 position: 'relative',
                 overflow: 'hidden',
               }}
               onMouseEnter={(e) => {
                 (e.currentTarget as HTMLElement).style.transform = 'translateY(-3px)';
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 0 50px rgba(226,183,20,0.55)';
+                (e.currentTarget as HTMLElement).style.boxShadow = '0 0 50px rgba(0,198,167,0.55)';
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
-                (e.currentTarget as HTMLElement).style.boxShadow = '0 0 30px rgba(226,183,20,0.35)';
+                (e.currentTarget as HTMLElement).style.boxShadow = '0 0 30px rgba(0,198,167,0.35)';
               }}
             >
               ⚔️ Register Now
@@ -289,22 +289,22 @@ export default function Home() {
                 alignItems: 'center',
                 gap: 8,
                 background: 'transparent',
-                color: '#e2b714',
+                color: '#00c6a7',
                 fontWeight: 700,
                 fontSize: '1rem',
                 padding: '14px 36px',
                 borderRadius: '8px',
                 textDecoration: 'none',
-                border: '1px solid rgba(226,183,20,0.4)',
+                border: '1px solid rgba(0,198,167,0.4)',
                 transition: 'all 0.25s ease',
               }}
               onMouseEnter={(e) => {
-                (e.currentTarget as HTMLElement).style.background = 'rgba(226,183,20,0.08)';
-                (e.currentTarget as HTMLElement).style.borderColor = '#e2b714';
+                (e.currentTarget as HTMLElement).style.background = 'rgba(0,198,167,0.08)';
+                (e.currentTarget as HTMLElement).style.borderColor = '#00c6a7';
               }}
               onMouseLeave={(e) => {
                 (e.currentTarget as HTMLElement).style.background = 'transparent';
-                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(226,183,20,0.4)';
+                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(0,198,167,0.4)';
               }}
             >
               View Tournaments
@@ -335,9 +335,9 @@ export default function Home() {
       <section
         className="reveal"
         style={{
-          borderTop: '1px solid rgba(226,183,20,0.12)',
-          borderBottom: '1px solid rgba(226,183,20,0.12)',
-          background: 'rgba(226,183,20,0.03)',
+          borderTop: '1px solid rgba(0,198,167,0.12)',
+          borderBottom: '1px solid rgba(0,198,167,0.12)',
+          background: 'rgba(0,198,167,0.03)',
           padding: '32px 24px',
           opacity: 0,
           transform: 'translateY(30px)',
@@ -360,7 +360,7 @@ export default function Home() {
                 style={{
                   fontSize: 'clamp(1.6rem, 3vw, 2.2rem)',
                   fontWeight: 900,
-                  color: '#e2b714',
+                  color: '#00c6a7',
                   fontFamily: 'Inter, sans-serif',
                   letterSpacing: '-0.02em',
                 }}
@@ -389,19 +389,19 @@ export default function Home() {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <div style={{ flex: 1, height: 1, background: 'rgba(226,183,20,0.15)' }} />
+          <div style={{ flex: 1, height: 1, background: 'rgba(0,198,167,0.15)' }} />
           <span
             style={{
               fontSize: 11,
               letterSpacing: '0.22em',
-              color: '#e2b714',
+              color: '#00c6a7',
               textTransform: 'uppercase',
               fontWeight: 700,
             }}
           >
             Live Slots & Tournaments
           </span>
-          <div style={{ flex: 1, height: 1, background: 'rgba(226,183,20,0.15)' }} />
+          <div style={{ flex: 1, height: 1, background: 'rgba(0,198,167,0.15)' }} />
         </div>
       </div>
 
@@ -429,8 +429,8 @@ export default function Home() {
           to   { opacity: 1; transform: translateY(0); }
         }
         @keyframes pulse {
-          0%, 100% { box-shadow: 0 0 8px #e2b714; }
-          50%       { box-shadow: 0 0 18px #e2b714; }
+          0%, 100% { box-shadow: 0 0 8px #00c6a7; }
+          50%       { box-shadow: 0 0 18px #00c6a7; }
         }
       `}</style>
     </div>
