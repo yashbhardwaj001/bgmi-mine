@@ -62,13 +62,14 @@ const ParticleCanvas: React.FC = () => {
 };
 
 // ── Glitch Text ──────────────────────────────────────────────────────────────
-const GlitchText: React.FC<{ text: string; className?: string }> = ({ text, className }) => (
+const GlitchText: React.FC<{ text: string; className?: string; style?: React.CSSProperties }> = ({ text, className, style }) => (
   <span
     className={className}
     data-text={text}
     style={{
       position: 'relative',
       display: 'inline-block',
+      ...style,
     }}
   >
     {text}
@@ -222,7 +223,7 @@ export default function Home() {
             <GlitchText
               text="BGIS"
               className="text-primary"
-              style={{ color: '#e2b714', textShadow: '0 0 40px rgba(226,183,20,0.4)' } as React.CSSProperties}
+              style={{ color: '#e2b714', textShadow: '0 0 40px rgba(226,183,20,0.4)' }}
             />
           </h1>
 

