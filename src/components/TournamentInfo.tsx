@@ -1,5 +1,11 @@
 import React from 'react';
-import { Trophy, Target, Map, Users, Crosshair } from 'lucide-react';
+import { Trophy, Target, Map, Users, Crosshair, Clock } from 'lucide-react';
+
+const timeSlots = [
+  { time: '6:00 PM', label: 'Early Evening', status: 'Open', statusColor: '#31a24c', border: 'rgba(49,162,76,0.25)', bg: 'rgba(49,162,76,0.05)' },
+  { time: '9:00 PM', label: 'Prime Time', status: 'Open', statusColor: '#C9A84C', border: 'rgba(201,168,76,0.25)', bg: 'rgba(201,168,76,0.05)' },
+  { time: '11:00 PM', label: 'Night Owl', status: 'Open', statusColor: '#7c9ef8', border: 'rgba(124,158,248,0.25)', bg: 'rgba(124,158,248,0.05)' },
+];
 
 export default function TournamentInfo() {
   return (
@@ -86,6 +92,62 @@ export default function TournamentInfo() {
           </p>
         </div>
       </div>
+
+      {/* ── Today's Match Schedule ─────────────────────────────────────────── */}
+      <div className="lg:col-span-2 bg-bg-card rounded-2xl p-8 border border-white/5">
+        <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-3">
+          <Clock className="text-primary h-6 w-6" />
+          Today's Match Schedule
+        </h3>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {timeSlots.map((slot) => (
+            <div
+              key={slot.time}
+              style={{ background: slot.bg, border: `1px solid ${slot.border}`, borderRadius: '16px', padding: '28px 24px' }}
+            >
+              {/* Time */}
+              <div style={{ fontSize: '2rem', fontWeight: 800, color: '#fff', letterSpacing: '-0.02em', fontFamily: 'Inter, sans-serif' }}>
+                {slot.time}
+              </div>
+              <div style={{ fontSize: '11px', letterSpacing: '0.18em', textTransform: 'uppercase', color: '#666', marginTop: '4px', fontWeight: 600 }}>
+                {slot.label}
+              </div>
+
+              {/* Status badge */}
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, marginTop: 16, background: 'rgba(0,0,0,0.3)', borderRadius: '999px', padding: '4px 12px' }}>
+                <span style={{ width: 7, height: 7, borderRadius: '50%', background: slot.statusColor, display: 'inline-block' }} />
+                <span style={{ fontSize: 12, color: slot.statusColor, fontWeight: 600 }}>{slot.status}</span>
+              </div>
+
+              {/* Register button */}
+              <a
+                href="/login.html"
+                style={{
+                  display: 'block',
+                  marginTop: 20,
+                  textAlign: 'center',
+                  padding: '10px 0',
+                  borderRadius: '8px',
+                  background: slot.statusColor,
+                  color: '#0A0A0A',
+                  fontWeight: 700,
+                  fontSize: '14px',
+                  letterSpacing: '0.06em',
+                  textTransform: 'uppercase',
+                  textDecoration: 'none',
+                  transition: 'filter 0.2s',
+                }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.filter = 'brightness(1.15)'; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.filter = 'brightness(1)'; }}
+              >
+                Register Now
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
+
